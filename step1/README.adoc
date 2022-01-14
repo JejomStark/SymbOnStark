@@ -1,0 +1,121 @@
+= Setting up your environment
+
+== Installation of Python 3.7
+
+My OS is an ubuntu 20.04, if you don't know what's your ubuntu version, you can check with the command below.
+[source,bash]
+----
+lsb_release -a
+
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 20.04.3 LTS
+Release:	20.04
+Codename:	focal
+
+----
+
+The problem with this version that's you don't have the version of python validate to build with cairo.
+
+So, we will add a repository to access on this version.
+
+[source,bash]
+----
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.7
+----
+
+At this point, Python3.7 is installed on your ubuntu. You can verify with the command
+
+[source,bash]
+----
+python3.7 --version
+----
+
+== Create an virtual environment
+
+Add an another package : python3.7-venv, this package will allow us to create an virtual environment to develop on cairo.
+
+[source,bash]
+----
+sudo apt install python3.7-dev python3.7-venv
+----
+
+And next create your virtual environment
+
+[source,bash]
+----
+python3.7 -m venv ~/stark_venv  
+----
+
+And of course, activate it ;)
+
+[source,bash]
+----
+source ~/stark_venv/bin/activate
+----
+
+After that your prompt is prefix with (stark_venv)
+
+== Add dependencies
+
+Add library *libgmp3-dev* that is used to support multiprecision arithmetic.
+[source,bash]
+----
+sudo apt install -y libgmp3-dev
+----
+
+And add python library use by cairo
+
+[source,bash]
+----
+pip3 install ecdsa fastecdsa sympy
+---- 
+
+== Installation cairo
+
+Last step, we will install *cairo*
+
+[source,bash]
+----
+pip3 install cairo-lang
+---- 
+
+Test your installation on execute *cairo-compile*
+
+[source,bash]
+----
+cairo-compile
+
+
+usage: cairo-compile [-h] [--proof_mode] [--no_proof_mode] [-v]
+                     [--prime PRIME] [--cairo_path CAIRO_PATH] [--preprocess]
+                     [--output OUTPUT] [--no_debug_info]
+                     [--debug_info_with_source]
+                     [--cairo_dependencies CAIRO_DEPENDENCIES]
+                     [--no_opt_unused_functions]
+                     file [file ...]
+cairo-compile: error: the following arguments are required: file
+----
+
+== Installation IDE
+
+Download Visual Studio (VS) : https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+
+Download the Cairo Visual Studio Code extension : https://github.com/starkware-libs/cairo-lang/releases/download/v0.6.2/cairo-0.6.2.vsix
+
+
+Add plugin to VS (Note: For me the file is located at ~/Download/cairo-0.6.2.vsix)
+
+[source,bash]
+----
+code --install-extension ~/Download/cairo-0.6.2.vsix
+----
+
+Then in VS, click on setting and search *formatOnsave* and activate this option.
+
+Congrats all it's ok to the next step
+
+
