@@ -1,7 +1,0 @@
-= Setting up a simple project
-
-== All you need
-
-Follow step by step the part 2 of SymbOnStark 
-
-

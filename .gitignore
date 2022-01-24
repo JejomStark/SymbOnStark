@@ -1,2 +1,4 @@
 stark_venv/
-.vscode
+.vscode/
+public/
+symbiote/
