@@ -5,24 +5,30 @@
 
 # Import a crypto Library 
 from starkware.cairo.common.cairo_builtins import HashBuiltin, BitwiseBuiltin
-from starknet.lib.packed_keccak import BLOCK_SIZE, packed_keccak_func
-from starkware.cairo.common.pow import pow
+# import uint256 to create uints and perform addition and subtraction operations
 from starkware.cairo.common.uint256 import Uint256, uint256_sub, uint256_add
-from starknet.lib.keccak import keccak256
+# import alloc to acces local memory 
 from starkware.cairo.common.alloc import alloc
-from starkware.cairo.common.math import unsigned_div_rem
+#import get_fp_and_pc to access function memory
 from starkware.cairo.common.registers import get_fp_and_pc
+# import unsigned_div_rem to perform modulo operations
+from starkware.cairo.common.math import unsigned_div_rem
+# import external library
+from starknet.lib.keccak import keccak256
 
+######################################### @const
 # To make sure our DNA is only 16 characters, we make an uint equal to 10^16. 
 # Next we will us a modulus operator % to shorten an integer to 16 digits
 const DNA_MODULUS = 10 ** 16
 
-# # Definition to our symbiote structure
+######################################### @struct
+# Definition to our symbiote structure
 struct Symbiote:
     member name: felt
     member dna: Uint256
 end
 
+######################################### @storage (mapping to solidity dev)
 # Symbiotes[] ;
 # Define a storage variable, to save all our symbiotes.
 # id = Uint256 our symbiote ID that is mapping to our struct "Symbiote"
@@ -30,6 +36,8 @@ end
 func Symbiotes(id: Uint256) -> (symb: Symbiote):
 end
 
+# Define another storage, to save howw much symbiote are minted
+# in the next step, we will see how use it.
 @storage_var
 func counter_symb() -> (counter: Uint256):
 end
@@ -43,14 +51,14 @@ func create_random_symbiote{
         pedersen_ptr : HashBuiltin*,
         range_check_ptr,
         bitwise_ptr : BitwiseBuiltin*
-    }(name:felt) -> (dna: Uint256):
+    }(name:felt) -> (res: Uint256):
       # We define this function to access to our memore function 
     alloc_locals
     let fp_and_pc = get_fp_and_pc()
     local __fp__ = fp_and_pc.fp_val
     # __fp__ we permit us to access to memory of name with "&" that equal to fp
     # more info https://www.cairo-lang.org/docs/how_cairo_works/functions.html
-    let (dna) = _generate_dna(1, 1, &name)
+    let (local dna) = _generate_dna(1, 1, &name)
     let (counter) = counter_symb.read()    
     
     # Write our symbiote in starknet
@@ -60,7 +68,18 @@ func create_random_symbiote{
     let (res,_) = uint256_add(counter, Uint256(1, 0))
     # finally we increase the counter and return the generate dna
     counter_symb.write(res)    
-    return(dna=dna)     
+    
+    return(res=dna)     
+end
+
+@external
+func t{
+    syscall_ptr : felt*, 
+    pedersen_ptr : HashBuiltin*,
+    range_check_ptr
+}(a:felt) -> (b: felt):
+    let b = a + a
+    return (b=b)
 end
 
 ####################################### getters 
