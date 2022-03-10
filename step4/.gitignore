@@ -1,0 +1,5 @@
+node_modules/
+stark-artifacts/
+cache/
+test
+step3.txt

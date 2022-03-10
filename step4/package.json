@@ -1,0 +1,27 @@
+{
+  "name": "step3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npx hardhat test test/SymbioteFactory",
+    "sc": "npx hardhat starknet-compile --cairo-path \"/home/dev/workspace/cairo/starknet-l2-storage-verifier/contracts\"",
+    "deploy-dev": "npx hardhat starknet-deploy --starknet-network develop",
+    "deploy-testnet": "npx hardhat starknet-deploy --starknet-network alpha-goerli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@shardlabs/starknet-hardhat-plugin": "^0.4.0",
+    "chai": "^4.3.5",
+    "hardhat": "^2.8.3"
+  },
+  "dependencies": {
+    "@toruslabs/starkware-crypto": "^1.0.0",
+    "starknet": "^2.5.1"
+  }
+}
