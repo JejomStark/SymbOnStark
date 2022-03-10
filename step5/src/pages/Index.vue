@@ -26,7 +26,7 @@ export default defineComponent({
   data() {
     return {
       contract:
-        "0x063e7a28f41937c2e59c5857bb38f5760a2b7e8f7ab943e44b3c454bc0482371",
+        "put_your_contract_address_here",
       connected: false,
       wallet: null,
       starknet: null,
