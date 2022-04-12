@@ -1,0 +1,27 @@
+{
+  "name": "step3",
+  "version": "1.0.0",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npx hardhat test test/symbioteLikeKitti",
+    "sc": "npx hardhat starknet-compile --cairo-path \"/home/dev/workspace/cairo/step8/\"",
+    "deploy-dev": "npx hardhat starknet-deploy --starknet-network develop",
+    "deploy-testnet": "npx hardhat starknet-deploy --starknet-network alpha-goerli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@shardlabs/starknet-hardhat-plugin": "^0.5.1",
+    "chai": "^4.3.5",
+    "hardhat": "^2.8.3"
+  },
+  "dependencies": {
+    "@toruslabs/starkware-crypto": "^1.0.0",
+    "starknet": "^3.5.1"
+  },
+  "description": ""
+}
